@@ -1,0 +1,62 @@
+* {
+    outline: none; /* Removes focus outlines */
+    border: none; /* Removes borders */
+    box-shadow: none; /* Removes box shadows */
+}/* Navbar styles */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* Ensures it stays on top of other elements */
+    border-bottom: 1px solid #ddd; /* Optional: Adds a subtle bottom border */
+    background-color: black;
+    padding: 0.5rem 1rem;
+    height: 10%;
+}
+
+body {
+    margin: 0;
+    padding-top: 56px; /* Adjust to navbar height to avoid content overlap */
+}
+
+.navbar-brand {
+    font-weight: bold;
+    color: white !important;
+    font-size: 1.25rem;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-nav .nav-link,
+.navbar-nav .nav-item .dropdown-toggle {
+    color: white !important;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    white-space: nowrap; /* Prevent wrapping to the next line */
+}
+
+.navbar-nav {
+    align-items: center; /* Vertically align items in the same row */
+}
+
+.navbar-collapse {
+    justify-content: space-between; /* Distribute items across the navbar */
+}
+
+/* Remove borders and padding for dropdown */
+.dropdown-menu {
+    border: none;
+    padding: 0;
+    background-color: black; /* Match dropdown background to navbar */
+}
+
+.dropdown-item {
+    color: white;
+    padding: 0.5rem 1rem;
+}
+
+.dropdown-item:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Add subtle hover effect */
+}
