@@ -11,6 +11,9 @@ const newsSchema = new mongoose.Schema({
     category: { type: String, required: true }
 });
 
+// Create a text index on the fields you want to search
+newsSchema.index({ title: 'text', description: 'text', content: 'text' });
+
 const News = mongoose.model('News', newsSchema);
 
 module.exports = News;

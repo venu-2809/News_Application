@@ -1,55 +1,48 @@
-import React from "react";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import "./Newslist.css";
- 
-const News = () => {
-  const [news, setnews] = useState([]);
-  useEffect(() => {
-    axios
-      .get("http://localhost:3000/news")
-      .then((res) => {
-        // handle success
-        console.log(res.data);
-        setnews(res.data);
-        //  console.log(res);
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      })
-      .finally(function () {
-        // always executed
-      });
-  }, []);
-  return (
-    <>
-      <div className="container my-5">
-        <div className="row text-center">
-          {news.map((val) => {
-            return (
-              <div className="col my-3">
-                <div className="card" style={{ width: "18rem" }}>
-                  <img src={val.img} className="card-img-top" alt="..." />
-                  <div className="card-body">
-                    <h5 className="card-title">{val.headline}</h5>
-                    <p className="card-text">{val.description}</p>
-                    <a
-                      href={val.link}
-                      target="_blank"
-                      className="btn btn-primary"
-                    >
-                      Know More
-                    </a>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </>
-  );
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import SearchBar from './SearchBar';
+import { Card, Button, Container, Row, Col } from 'react-bootstrap';
+import './NewsList.css';
+
+const NewsList = () => {
+    const [news, setNews] = useState([]);
+    const [searchResults, setSearchResults] = useState([]);
+
+    useEffect(() => {
+        const fetchNews = async () => {
+            try {
+                const response = await axios.get('http://localhost:3000/api/news');
+                setNews(response.data);
+            } catch (error) {
+                console.error('Error fetching news:', error);
+            }
+        };
+
+        fetchNews();
+    }, []);
+
+    const displayNews = searchResults.length > 0 ? searchResults : news;
+
+    return (
+        <Container>
+            <SearchBar setSearchResults={setSearchResults} />
+            <Row>
+                {displayNews.map((article) => (
+                    <Col key={article._id} sm={12} md={6} lg={4} className="mb-4">
+                        <Card>
+                            <Card.Body>
+                                <Card.Title>{article.title}</Card.Title>
+                                <Card.Text>{article.description}</Card.Text>
+                                <Button variant="primary" href={article.url} target="_blank" rel="noopener noreferrer">
+                                    Learn more
+                                </Button>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                ))}
+            </Row>
+        </Container>
+    );
 };
- 
-export default News;
+
+export default NewsList;
